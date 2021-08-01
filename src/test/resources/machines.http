@@ -1,0 +1,31 @@
+###
+GET http://localhost:8080/api/speedrenthu/machines
+Accept: application/json
+
+###
+GET http://localhost:8080/api/speedrenthu/machines/3
+Accept: application/json
+
+###
+POST http://localhost:8080/api/speedrenthu/machines
+Content-Type: application/json
+
+{
+  "name": "drill",
+  "segment": "BUILDING"
+}
+
+###
+PUT http://localhost:8080/api/speedrenthu/machines?segment=building
+Content-Type: application/json
+
+{
+  "segment": "BUILDING_AND_REPAIRING"
+}
+
+###
+DELETE http://localhost:8080/api/speedrenthu/machines/9
+Accept: application/json
+
+
+###
