@@ -1,4 +1,4 @@
-package speedrenthu;
+package speedrenthu.myapplication;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.modelmapper.ModelMapper;

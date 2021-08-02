@@ -1,4 +1,4 @@
-package speedrenthu;
+package speedrenthu.machine;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

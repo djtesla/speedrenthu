@@ -1,4 +1,4 @@
-package speedrenthu;
+package speedrenthu.machine;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

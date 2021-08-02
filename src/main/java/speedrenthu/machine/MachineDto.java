@@ -1,18 +1,16 @@
-package speedrenthu;
+package speedrenthu.machine;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.validator.constraints.Length;
-
-import javax.validation.constraints.Max;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CreateMachineCommand {
+public class MachineDto {
 
-    @Length(min =1, max = 50)
+    private Long id;
     private String name;
     private Machine.Segment segment;
+
 }

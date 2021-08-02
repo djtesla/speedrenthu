@@ -5,7 +5,6 @@ import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.flywaydb.core.Flyway;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +14,10 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.zalando.problem.Problem;
 import org.zalando.problem.Status;
+import speedrenthu.machine.CreateMachineCommand;
+import speedrenthu.machine.Machine;
+import speedrenthu.machine.MachineDto;
+import speedrenthu.machine.UpdateSegmentCommand;
 
 import java.net.URI;
 import java.util.List;

@@ -1,17 +1,20 @@
-package speedrenthu;
+package speedrenthu.machine;
 
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 import org.zalando.problem.Problem;
 import org.zalando.problem.Status;
+import speedrenthu.myapplication.EntityNotFoundException;
+import speedrenthu.myapplication.Violation;
 
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @AllArgsConstructor
@@ -45,8 +48,8 @@ public class MachineController {
         machineService.deleteMachineById(id);
     }
 
-    @ExceptionHandler(MachineNotFoundException.class)
-    public ResponseEntity<Problem> handleMovieNotFound(MachineNotFoundException mnfe) {
+    @ExceptionHandler(EntityNotFoundException.class)
+    public ResponseEntity<Problem> handleMovieNotFound(EntityNotFoundException mnfe) {
         Problem problem = Problem.builder()
                 .withType(URI.create("machine/not-found"))
                 .withStatus(Status.NOT_FOUND)
@@ -55,6 +58,27 @@ public class MachineController {
                 .build();
         return ResponseEntity
                 .status(HttpStatus.NOT_FOUND)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(problem);
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseEntity<Problem> handleNotValidException(MethodArgumentNotValidException mae) {
+
+        List<Violation> violations = mae.getBindingResult().getFieldErrors().stream()
+                .map(fieldError -> new Violation(fieldError.getField(), fieldError.getDefaultMessage()))
+                .collect(Collectors.toList());
+
+        Problem problem = Problem.builder()
+                .withType(URI.create("entity/not valid"))
+                .withTitle(("Validation error"))
+                .withStatus(Status.BAD_REQUEST)
+                .withDetail(mae.getMessage())
+                .with("violations", violations)
+                .build();
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(problem);
     }
