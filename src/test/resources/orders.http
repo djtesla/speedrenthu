@@ -1,0 +1,39 @@
+###
+GET http://localhost:8080/api/speedrenthu/orders/by_machine/2
+Accept: application/json
+
+
+###
+POST http://localhost:8080/api/speedrenthu/orders
+Content-Type: application/json
+
+{
+  "name": "steam cleaner",
+  "duration": "THREE_HOURS",
+  "date": "2021-07-06",
+  "location": "Budapest"
+}
+
+###
+PUT http://localhost:8080/api/speedrenthu/orders/2
+Content-Type: application/json
+
+{
+  "status": "CANCELED"
+}
+
+###
+DELETE http://localhost:8080/api/speedrenthu/orders
+Content-Type: application/json
+
+{
+  "date": "2021-07-10"
+}
+###
+
+DELETE http://localhost:8080/api/speedrenthu/orders/11
+Accept: application/json6
+
+
+}
+###

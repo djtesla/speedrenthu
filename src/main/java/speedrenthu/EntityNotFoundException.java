@@ -1,4 +1,4 @@
-package speedrenthu.myapplication;
+package speedrenthu;
 
 public class EntityNotFoundException extends RuntimeException {
 
