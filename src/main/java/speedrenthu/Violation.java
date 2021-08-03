@@ -1,4 +1,4 @@
-package speedrenthu.myapplication;
+package speedrenthu;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
