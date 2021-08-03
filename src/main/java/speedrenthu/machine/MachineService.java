@@ -3,11 +3,12 @@ package speedrenthu.machine;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
-import speedrenthu.myapplication.EntityNotFoundException;
+import speedrenthu.EntityNotFoundException;
 
 import javax.transaction.Transactional;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -32,6 +33,12 @@ public class MachineService {
     public MachineDto getMachineById(long id) {
         Machine machine = machineRepository.findById(id).orElseThrow(()-> new EntityNotFoundException("Machine cannot be found by id " + id));
         return modelMapper.map(machine, MachineDto.class);
+    }
+
+    @Transactional
+    public MachineDto findMachineByName(String name) {
+        Machine machine = machineRepository.findMachineByName(name).orElseThrow(()-> new EntityNotFoundException("Machine cannot be found by name " + name));
+    return  modelMapper.map(machine, MachineDto.class);
     }
 
     @Transactional

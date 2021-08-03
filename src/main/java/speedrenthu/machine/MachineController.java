@@ -8,8 +8,8 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 import org.zalando.problem.Problem;
 import org.zalando.problem.Status;
-import speedrenthu.myapplication.EntityNotFoundException;
-import speedrenthu.myapplication.Violation;
+import speedrenthu.EntityNotFoundException;
+import speedrenthu.Violation;
 
 import javax.validation.Valid;
 import java.net.URI;
@@ -34,12 +34,13 @@ public class MachineController {
     }
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public MachineDto createMachine(@RequestBody @Valid CreateMachineCommand command) {
         return machineService.createMachine(command);
     }
 
     @PutMapping
-    public List<MachineDto> updateSegmentName(@RequestParam String segment, @RequestBody UpdateSegmentCommand command) {
+    public List<MachineDto> updateSegmentName(@RequestParam String segment, @RequestBody @Valid UpdateSegmentCommand command) {
         return machineService.updateSegmentName(segment, command);
     }
 
@@ -49,12 +50,12 @@ public class MachineController {
     }
 
     @ExceptionHandler(EntityNotFoundException.class)
-    public ResponseEntity<Problem> handleMovieNotFound(EntityNotFoundException mnfe) {
+    public ResponseEntity<Problem> handleMovieNotFound(EntityNotFoundException enfe) {
         Problem problem = Problem.builder()
                 .withType(URI.create("machine/not-found"))
                 .withStatus(Status.NOT_FOUND)
                 .withTitle("Not found")
-                .withDetail(mnfe.getMessage())
+                .withDetail(enfe.getMessage())
                 .build();
         return ResponseEntity
                 .status(HttpStatus.NOT_FOUND)
@@ -71,7 +72,7 @@ public class MachineController {
                 .collect(Collectors.toList());
 
         Problem problem = Problem.builder()
-                .withType(URI.create("entity/not valid"))
+                .withType(URI.create("entity/not-valid"))
                 .withTitle(("Validation error"))
                 .withStatus(Status.BAD_REQUEST)
                 .withDetail(mae.getMessage())

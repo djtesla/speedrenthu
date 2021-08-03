@@ -3,7 +3,7 @@ GET http://localhost:8080/api/speedrenthu/machines
 Accept: application/json
 
 ###
-GET http://localhost:8080/api/speedrenthu/machines/3
+GET http://localhost:8080/api/speedrenthu/machines/30
 Accept: application/json
 
 ###
@@ -24,7 +24,7 @@ Content-Type: application/json
 }
 
 ###
-DELETE http://localhost:8080/api/speedrenthu/machines/9
+DELETE http://localhost:8080/api/speedrenthu/machines/30
 Accept: application/json
 
 

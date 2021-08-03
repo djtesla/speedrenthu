@@ -4,6 +4,7 @@ package speedrenthu;
 import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.*;
 
+//import org.flywaydb.core.Flyway;
 import org.flywaydb.core.Flyway;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -30,8 +31,8 @@ public class MachineControllerRestTestIT {
     @Autowired
     TestRestTemplate template;
 
-    @Autowired
-    Flyway flyway;
+   @Autowired
+   Flyway flyway;
 
     @BeforeEach
     public void init(){
@@ -41,7 +42,7 @@ public class MachineControllerRestTestIT {
 
 
     @Test
-    void testCreateMachine() {
+    void testCreate() {
         MachineDto machine = template.postForObject("/api/speedrenthu/machines", new CreateMachineCommand("rock drill", Machine.Segment.BUILDING), MachineDto.class);
         assertAll(
                 () -> assertEquals("rock drill", machine.getName()),
@@ -52,13 +53,13 @@ public class MachineControllerRestTestIT {
     @Test
     void testGetMachineById() {
         template.postForObject("/api/speedrenthu/machines", new CreateMachineCommand("drill", Machine.Segment.BUILDING), MachineDto.class);
-        MachineDto machine = template.getForObject("/api/speedrenthu/machines/9", MachineDto.class);
+        MachineDto machine = template.getForObject("/api/speedrenthu/machines/10", MachineDto.class);
         assertEquals("drill", machine.getName());
     }
 
 
     @Test
-    void updateSegmentName() {
+    void testUpdate() {
         template.put("/api/speedrenthu/machines?segment=building", new UpdateSegmentCommand(Machine.Segment.BUILDING_AND_REPAIRING));
         List<MachineDto> result = template.exchange(
                 "/api/speedrenthu/machines",
@@ -71,7 +72,7 @@ public class MachineControllerRestTestIT {
 
 
     @Test
-    void testDeleteMachineById() {
+    void testDelete() {
         template.delete("/api/speedrenthu/machines/1");
         Problem result = template.getForObject("/api/speedrenthu/machines/1", Problem.class);
         assertEquals(URI.create("machine/not-found"),result.getType());
