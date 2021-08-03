@@ -1,0 +1,10 @@
+create table price_categories (id bigint not null auto_increment, amount integer not null, duration varchar(255), machine_id bigint, primary key (id),  foreign key (machine_id) references machines (id));
+insert into price_categories (amount, duration, machine_id) values (4000, 'THREE_HOURS', 1);
+insert into price_categories (amount, duration, machine_id) values (5000, 'ONE_DAY', 1);
+insert into price_categories (amount, duration, machine_id) values (9000, 'WEEKEND', 1);
+insert into price_categories (amount, duration, machine_id) values (3000, 'THREE_HOURS', 2);
+insert into price_categories (amount, duration, machine_id) values (5000, 'ONE_DAY', 2);
+insert into price_categories (amount, duration, machine_id) values (7000, 'WEEKEND', 2);
+insert into price_categories (amount, duration, machine_id) values (5000, 'THREE_HOURS', 3);
+insert into price_categories (amount, duration, machine_id) values (6000, 'ONE_DAY', 3);
+insert into price_categories (amount, duration, machine_id) values (10000, 'WEEKEND', 3);
