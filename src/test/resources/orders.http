@@ -1,5 +1,15 @@
 ###
-GET http://localhost:8080/api/speedrenthu/orders/by_machine/2
+GET http://localhost:8080/api/speedrenthu/orders/machine/2
+Accept: application/json
+
+
+###
+GET http://localhost:8080/api/speedrenthu/orders//revenue_by_segment
+Accept: application/json
+
+
+###
+GET http://localhost:8080/api/speedrenthu/orders/machine/1/revenue
 Accept: application/json
 
 
@@ -8,7 +18,7 @@ POST http://localhost:8080/api/speedrenthu/orders
 Content-Type: application/json
 
 {
-  "name": "steam cleaner",
+  "name": "vibrating temper",
   "duration": "THREE_HOURS",
   "date": "2021-07-06",
   "location": "Budapest"

@@ -15,6 +15,7 @@ import speedrenthu.pricecategory.PriceCategoryService;
 
 import javax.transaction.Transactional;
 import javax.validation.constraints.Min;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,6 +28,39 @@ public class OrderService {
     private PriceCategoryService priceCategoryService;
     private OrderRepository orderRepository;
 
+
+    public List<OrderDto> listAllOrders() {
+        List<Order> orders = orderRepository.findAll();
+        return orders.stream().map(order -> modelMapper.map(order, OrderDto.class)).collect(Collectors.toList());
+    }
+
+
+    public   List<RevenueBySegmentDto> getRevenueBySegment() {
+        List<Object[]> objects  = orderRepository.getRevenueBySegment();
+        List<RevenueBySegmentDto> revenues = new ArrayList<>();
+        for (Object[] element : objects){
+            revenues.add(new RevenueBySegmentDto((Machine.Segment) element[0], (long)element[1]));
+        }
+        return revenues;
+    }
+
+    public List<RevenueByMachineDto> getRevenueByMachine(long machineId) {
+        List<Object[]> objects  = orderRepository.getRevenueByMachine(machineId);
+        List<RevenueByMachineDto> revenues = new ArrayList<>();
+        for (Object[] element : objects){
+            revenues.add(new RevenueByMachineDto((String) element[0], (int)element[1]));
+        }
+        return revenues;
+
+    }
+
+
+    public List<OrderDto> findOrdersByMachineId(long id) {
+        machineService.getMachineById(id);
+        List<Order> orders = orderRepository.findOrdersByMachineId(id);
+        return orders.stream().map(order -> modelMapper.map(order, OrderDto.class)).collect(Collectors.toList());
+    }
+
     @Transactional
     public OrderDto createOrder(CreateOrderCommand command) {
         MachineDto machineDto = machineService.findMachineByName(command.getName());
@@ -36,18 +70,13 @@ public class OrderService {
         Order order = new Order(command.getDate(), command.getLocation(), Order.Status.WIP);
         priceCategory.addOrder(order);
         orderRepository.save(order);
-        return  modelMapper.map(order, OrderDto.class);
+        return modelMapper.map(order, OrderDto.class);
     }
 
-    public List<OrderDto> findOrdersByMachineId(long id) {
-        machineService.getMachineById(id);
-        List<Order> orders = orderRepository.findOrdersByMachineId(id);
-        return orders.stream().map(order -> modelMapper.map(order, OrderDto.class)).collect(Collectors.toList());
-    }
 
     @Transactional
     public OrderDto updateOrderByStatus(long id, UpdateStatusCommand command) {
-        Order order = orderRepository.findById(id).orElseThrow(()->new EntityNotFoundException("Order cannot be found by id " + id));
+        Order order = orderRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Order cannot be found by id " + id));
         order.setStatus(command.getStatus());
         return modelMapper.map(order, OrderDto.class);
     }
@@ -59,12 +88,17 @@ public class OrderService {
 
     @Transactional
     public void deleteOrderById(long id) {
-        Order order = orderRepository.findById(id).orElseThrow(()->new EntityNotFoundException("Order cannot be found by id " + id));
+        Order order = orderRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Order cannot be found by id " + id));
         orderRepository.deleteById(id);
     }
 
+
     public OrderDto findOrderById(long id) {
-        Order order = orderRepository.findById(id).orElseThrow(()->new EntityNotFoundException("Order cannot be found by id " + id));
+        Order order = orderRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Order cannot be found by id " + id));
         return modelMapper.map(order, OrderDto.class);
     }
+
+
 }
+
+

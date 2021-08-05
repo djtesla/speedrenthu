@@ -31,10 +31,28 @@ public class OrderController {
         return orderService.findOrderById(id);
     }
 
-    @GetMapping("/by_machine/{id}")
+    @GetMapping()
+    public List<OrderDto> listAllOrders() {
+        return orderService.listAllOrders();
+    }
+
+    @GetMapping("/machine/{id}")
     public List<OrderDto> findOrdersByMachineId(@PathVariable("id") long id) {
         return orderService.findOrdersByMachineId(id);
     }
+
+
+    @GetMapping("/revenue_by_segment")
+    public List<RevenueBySegmentDto> getRevenueBySegment() {
+        return orderService.getRevenueBySegment();
+    }
+
+
+    @GetMapping("/machine/{id}/revenue")
+    public List<RevenueByMachineDto> getRevenueByMachine(@PathVariable("id") long machineId) {
+        return orderService.getRevenueByMachine(machineId);
+    }
+
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
