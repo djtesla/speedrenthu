@@ -1,10 +1,15 @@
 ###
-GET http://localhost:8080/api/speedrenthu/orders/machine/2
+GET http://localhost:8080/api/speedrenthu/orders
 Accept: application/json
 
 
 ###
-GET http://localhost:8080/api/speedrenthu/orders//revenue_by_segment
+GET http://localhost:8080/api/speedrenthu/orders/machine/1
+Accept: application/json
+
+
+###
+GET http://localhost:8080/api/speedrenthu/orders/revenue_by_segment
 Accept: application/json
 
 
@@ -18,7 +23,7 @@ POST http://localhost:8080/api/speedrenthu/orders
 Content-Type: application/json
 
 {
-  "name": "vibrating temper",
+  "name": "carpet cleaner",
   "duration": "THREE_HOURS",
   "date": "2021-07-06",
   "location": "Budapest"
@@ -42,7 +47,7 @@ Content-Type: application/json
 ###
 
 DELETE http://localhost:8080/api/speedrenthu/orders/11
-Accept: application/json6
+Accept: application/json
 
 
 }

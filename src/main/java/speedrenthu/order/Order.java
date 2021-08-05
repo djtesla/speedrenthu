@@ -2,9 +2,7 @@ package speedrenthu.order;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import speedrenthu.machine.Machine;
 import speedrenthu.pricecategory.PriceCategory;
 
 import javax.persistence.*;

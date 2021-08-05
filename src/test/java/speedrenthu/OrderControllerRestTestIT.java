@@ -10,17 +10,8 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.zalando.problem.Problem;
 import org.zalando.problem.Status;
-import speedrenthu.machine.CreateMachineCommand;
-import speedrenthu.machine.Machine;
-import speedrenthu.machine.MachineDto;
-import speedrenthu.machine.UpdateSegmentCommand;
-import speedrenthu.order.CreateOrderCommand;
-import speedrenthu.order.Order;
-import speedrenthu.order.OrderDto;
-import speedrenthu.order.UpdateStatusCommand;
+import speedrenthu.order.*;
 import speedrenthu.pricecategory.PriceCategory;
-import speedrenthu.pricecategory.PriceCategoryDto;
-import speedrenthu.pricecategory.UpdateAmountCommand;
 
 import java.net.URI;
 import java.time.LocalDate;
@@ -62,12 +53,46 @@ public class OrderControllerRestTestIT {
     @Test
     void testList() {
         List<OrderDto> result = template.exchange(
-                "/api/speedrenthu/orders/by_machine/1",
+                "/api/speedrenthu/orders/machine/1",
                 HttpMethod.GET,
                 null,
                 new ParameterizedTypeReference<List<OrderDto>>() {
                 }).getBody();
         assertEquals(3, result.size());
+    }
+
+
+    @Test
+    void testRevenueBySegment() {
+        template.postForObject("/api/speedrenthu/orders", new CreateOrderCommand(
+                "carpet cleaner",
+                PriceCategory.Duration.THREE_HOURS,
+                LocalDate.of(2021, 8, 15),
+                "Vecsés"), OrderDto.class);
+        List<RevenueBySegmentDto> result = template.exchange(
+                "/api/speedrenthu/orders/revenue_by_segment",
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<List<RevenueBySegmentDto>>() {
+                }).getBody();
+        assertEquals(37000, result.get(0).getAmount());
+    }
+
+    @Test
+    void testRevenueByMachine() {
+        template.postForObject("/api/speedrenthu/orders", new CreateOrderCommand(
+                "carpet cleaner",
+                PriceCategory.Duration.THREE_HOURS,
+                LocalDate.of(2021, 8, 15),
+                "Vecsés"), OrderDto.class);
+        List<RevenueByMachineDto> result = template.exchange(
+                "/api/speedrenthu/orders/machine/1/revenue",
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<List<RevenueByMachineDto>>() {
+                }).getBody();
+        System.out.println(result);
+        assertEquals(22000, result.stream().map(dto-> dto.getAmount()).mapToInt(amount -> amount.intValue()).sum());
     }
 
 

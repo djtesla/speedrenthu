@@ -11,16 +11,15 @@ import java.util.Optional;
 
 public interface OrderRepository extends JpaRepository<Order, Long> {
 
-    @Query("select o from Order o join o.priceCategory p where p.machine.id =:id")
+    @Query("select o from Order o where o.priceCategory.machine.id =:id")
     List<Order> findOrdersByMachineId(long id);
 
     void deleteOrdersByDateBefore(LocalDate date);
-
 
     @Query("select p.machine.segment, sum(p.amount) from Order o join o.priceCategory p group by p.machine.segment")
     List<Object[]> getRevenueBySegment();
 
 
-    @Query("select p.machine.name, sum(p.amount) from Order o join o.priceCategory p group by p.machine.name having p.machine.id =:machineId")
+    @Query("select p.machine.id, p.duration, p.amount from Order o join o.priceCategory p where p.machine.id=:machineId")
     List<Object[]> getRevenueByMachine(long machineId);
 }

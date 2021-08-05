@@ -1,11 +1,8 @@
 package speedrenthu.order;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import speedrenthu.pricecategory.PriceCategory;
 import speedrenthu.pricecategory.PriceCategoryDto;
 
 import java.time.LocalDate;
