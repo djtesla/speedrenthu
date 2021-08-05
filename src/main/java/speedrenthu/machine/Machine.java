@@ -35,7 +35,6 @@ public class Machine {
     private Segment segment;
 
     @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.REMOVE}, fetch = FetchType.LAZY, mappedBy = "machine")
-    //@OrderBy("duration")
     @JsonIgnore
     @EqualsAndHashCode.Exclude
     private List<PriceCategory> priceCategories;

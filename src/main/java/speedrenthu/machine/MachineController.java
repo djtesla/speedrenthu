@@ -50,7 +50,7 @@ public class MachineController {
     }
 
     @ExceptionHandler(EntityNotFoundException.class)
-    public ResponseEntity<Problem> handleMovieNotFound(EntityNotFoundException enfe) {
+    public ResponseEntity<Problem> handleMachineNotFound(EntityNotFoundException enfe) {
         Problem problem = Problem.builder()
                 .withType(URI.create("machine/not-found"))
                 .withStatus(Status.NOT_FOUND)
@@ -72,7 +72,7 @@ public class MachineController {
                 .collect(Collectors.toList());
 
         Problem problem = Problem.builder()
-                .withType(URI.create("entity/not-valid"))
+                .withType(URI.create("machine/not-valid"))
                 .withTitle(("Validation error"))
                 .withStatus(Status.BAD_REQUEST)
                 .withDetail(mae.getMessage())
