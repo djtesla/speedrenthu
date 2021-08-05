@@ -38,16 +38,16 @@ public class PriceCategory {
     @Enumerated(EnumType.STRING)
     private Duration duration;
 
-    private int amount;
+    private long amount;
 
 
-    public PriceCategory(Machine machine, Duration duration, int amount) {
+    public PriceCategory(Machine machine, Duration duration, long amount) {
         this.machine = machine;
         this.duration = duration;
         this.amount = amount;
     }
 
-    public PriceCategory(Duration duration, int amount) {
+    public PriceCategory(Duration duration, long amount) {
         this.duration = duration;
         this.amount = amount;
     }

@@ -1,4 +1,4 @@
-create table price_categories (id bigint not null auto_increment, amount long not null, duration varchar(255), machine_id bigint, primary key (id),  foreign key (machine_id) references machines (id));
+create table price_categories (id bigint not null auto_increment, amount integer not null, duration varchar(255), machine_id bigint, primary key (id),  foreign key (machine_id) references machines (id));
 insert into price_categories (amount, duration, machine_id) values (4000, 'THREE_HOURS', 1);
 insert into price_categories (amount, duration, machine_id) values (5000, 'ONE_DAY', 1);
 insert into price_categories (amount, duration, machine_id) values (9000, 'WEEKEND', 1);

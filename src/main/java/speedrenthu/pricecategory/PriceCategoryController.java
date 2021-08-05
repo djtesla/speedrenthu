@@ -50,7 +50,6 @@ public class PriceCategoryController {
         priceCategoryService.deletePriceCategoryById(id);
     }
 
-
     @ExceptionHandler(EntityNotFoundException.class)
     public ResponseEntity<Problem> handlePriceCategoryNotFound(EntityNotFoundException enfe) {
         Problem problem = Problem.builder()

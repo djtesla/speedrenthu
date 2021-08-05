@@ -30,14 +30,9 @@ public class PriceCategoryService {
         String name = command.getName();
         MachineDto machineDto = machineService.findMachineByName(name);
         Machine machine = modelMapper.map(machineDto, Machine.class);
-
         PriceCategory priceCategory = new PriceCategory(command.getDuration(), command.getAmount());
-
         machine.addPriceCategory(priceCategory);
         priceCategoryRepository.save(priceCategory);
-
-        //PriceCategory priceCategory = new PriceCategory(machine, command.getDuration(), command.getAmount());
-       // priceCategoryRepository.save(priceCategory);
         return modelMapper.map(priceCategory, PriceCategoryDto.class);
     }
 
@@ -59,8 +54,8 @@ public class PriceCategoryService {
         priceCategoryRepository.delete(priceCategory);
     }
 
-    @Transactional
-    public PriceCategoryDto findPriceCategoryByMachineAndDuration (Machine machine, PriceCategory.Duration duration) {
+
+    public PriceCategoryDto findPriceCategoryByMachineAndDuration(Machine machine, PriceCategory.Duration duration) {
          PriceCategory priceCategory = priceCategoryRepository.findPriceCategoryByMachineAndDuration(machine,duration).orElseThrow(() -> new EntityNotFoundException("priceCategory cannot be find by machine and duration " + machine + ", " +duration));
     return modelMapper.map(priceCategory, PriceCategoryDto.class);
     }
