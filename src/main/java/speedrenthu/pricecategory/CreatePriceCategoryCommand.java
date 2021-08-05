@@ -15,7 +15,7 @@ public class CreatePriceCategoryCommand {
     String name;
 
 
-    @NotBlank
+    @NotNull
     @Schema(description = "duration of rent", example = "THREE_HOURS")
     PriceCategory.Duration duration;
 
