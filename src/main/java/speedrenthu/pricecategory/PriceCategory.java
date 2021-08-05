@@ -8,6 +8,7 @@ import speedrenthu.machine.Machine;
 import speedrenthu.order.Order;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.ArrayList;
 import java.util.List;
 

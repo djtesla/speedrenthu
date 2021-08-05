@@ -11,11 +11,10 @@ import javax.validation.constraints.*;
 public class CreatePriceCategoryCommand {
 
     @NotBlank
-    @NotBlank
     @Schema(description = "name of the machine", example = "rock drill")
     String name;
 
-    @NotNull
+
     @NotBlank
     @Schema(description = "duration of rent", example = "THREE_HOURS")
     PriceCategory.Duration duration;
