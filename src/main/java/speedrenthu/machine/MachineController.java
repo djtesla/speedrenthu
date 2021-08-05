@@ -1,5 +1,6 @@
 package speedrenthu.machine;
 
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -24,27 +25,32 @@ public class MachineController {
     private MachineService machineService;
 
     @GetMapping
+    @Operation(summary = "list all machines")
     public List<MachineDto> listAllMachines() {
         return machineService.listAllMachines();
     }
 
     @GetMapping("/{id}")
+    @Operation(summary = "list machines by id")
     public MachineDto getMachineById(@PathVariable ("id") long id) {
         return machineService.getMachineById(id);
     }
 
     @PostMapping
+    @Operation(summary = "create a machine")
     @ResponseStatus(HttpStatus.CREATED)
     public MachineDto createMachine(@RequestBody @Valid CreateMachineCommand command) {
         return machineService.createMachine(command);
     }
 
     @PutMapping
+    @Operation(summary = "update name of machine segment for all")
     public List<MachineDto> updateSegmentName(@RequestParam String segment, @RequestBody @Valid UpdateSegmentCommand command) {
         return machineService.updateSegmentName(segment, command);
     }
 
     @DeleteMapping("/{id}")
+    @Operation(summary = "delete machine by id")
     public void deleteMachineById(@PathVariable ("id") long id) {
         machineService.deleteMachineById(id);
     }

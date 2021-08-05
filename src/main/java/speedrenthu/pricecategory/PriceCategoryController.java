@@ -1,6 +1,7 @@
 package speedrenthu.pricecategory;
 
 
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -25,27 +26,32 @@ public class PriceCategoryController {
     private PriceCategoryService priceCategoryService;
 
     @GetMapping
+    @Operation(summary = "list all price categories")
     private List<PriceCategoryDto> listPriceCategories() {
         return priceCategoryService.listPriceCategories();
     }
 
     @GetMapping("/{id}")
+    @Operation(summary = "get price category by id")
     private PriceCategoryDto findPriceCategoryById(@PathVariable("id") long id) {
         return priceCategoryService.findPriceCategoryById(id);
     }
 
     @PostMapping
+    @Operation(summary = "create a price category")
     @ResponseStatus(HttpStatus.CREATED)
     public PriceCategoryDto createPriceCategory(@RequestBody @Valid CreatePriceCategoryCommand command) {
         return priceCategoryService.createPriceCategory(command);
     }
 
     @PutMapping("/{id}")
+    @Operation(summary = "update price category with amount")
     public PriceCategoryDto updatePriceCategoryWithAmount(@PathVariable("id") long id, @RequestBody @Valid UpdateAmountCommand command) {
         return priceCategoryService.updatePriceCategoryWithAmount(id, command);
     }
 
     @DeleteMapping("/{id}")
+    @Operation(summary = "delete price category by id")
     public void deletePriceCategoryById(@PathVariable("id") long id) {
         priceCategoryService.deletePriceCategoryById(id);
     }

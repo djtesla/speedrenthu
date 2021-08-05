@@ -1,5 +1,6 @@
 package speedrenthu.order;
 
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.jaxb.SpringDataJaxb;
 import org.springframework.http.HttpStatus;
@@ -27,50 +28,60 @@ public class OrderController {
     private OrderService orderService;
 
     @GetMapping("/{id}")
+    @Operation(summary = "find order by id")
     public OrderDto findOrderById(@PathVariable("id") long id) {
         return orderService.findOrderById(id);
     }
 
+
     @GetMapping()
+    @Operation(summary = "list all orders")
     public List<OrderDto> listAllOrders() {
         return orderService.listAllOrders();
     }
 
+
     @GetMapping("/machine/{id}")
+    @Operation(summary = "find orders by machine id")
     public List<OrderDto> findOrdersByMachineId(@PathVariable("id") long id) {
         return orderService.findOrdersByMachineId(id);
     }
 
-
     @GetMapping("/revenue_by_segment")
+    @Operation(summary = "get revenue by segment")
     public List<RevenueBySegmentDto> getRevenueBySegment() {
         return orderService.getRevenueBySegment();
     }
 
 
     @GetMapping("/machine/{id}/revenue")
+    @Operation(summary = "get revenue by machine id")
     public List<RevenueByMachineDto> getRevenueByMachine(@PathVariable("id") long machineId) {
         return orderService.getRevenueByMachine(machineId);
     }
 
 
     @PostMapping
+    @Operation(summary = "create an order")
     @ResponseStatus(HttpStatus.CREATED)
     public OrderDto createOrder(@RequestBody @Valid CreateOrderCommand command) {
         return orderService.createOrder(command);
     }
 
     @PutMapping("/{id}")
+    @Operation(summary = "update order status")
     public OrderDto updateOrderByStatus(@PathVariable("id") long id, @RequestBody @Valid UpdateStatusCommand command) {
         return orderService.updateOrderByStatus(id, command);
     }
 
     @DeleteMapping("/{id}")
+    @Operation(summary = "delete order by id")
     public void deleteOrderById(@PathVariable("id") long id) {
         orderService.deleteOrderById(id);
     }
 
     @DeleteMapping
+    @Operation(summary = "delete orders before certain date")
     public void deleteOrdersByDateBefore(@RequestBody @Valid DeleteOrdersCommand command) {
         orderService.deleteOrdersByDateBefore(command);
     }
