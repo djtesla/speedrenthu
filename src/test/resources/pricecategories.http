@@ -7,9 +7,9 @@ POST http://localhost:8080/api/speedrenthu/price_categories
 Content-Type: application/json
 
 {
-  "name": "drill",
-  "duration": "ONE_DAY",
-  "amount": 1500
+  "name": "carpet cleaner",
+  "duration": "THREE_HOURS",
+  "amount": 7000
 }
 
 ###

@@ -3,7 +3,6 @@ package speedrenthu.pricecategory;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import speedrenthu.machine.Machine;
 import speedrenthu.machine.MachineDto;
 
 

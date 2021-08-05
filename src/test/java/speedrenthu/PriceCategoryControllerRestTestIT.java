@@ -13,7 +13,6 @@ import org.zalando.problem.Status;
 import speedrenthu.machine.CreateMachineCommand;
 import speedrenthu.machine.Machine;
 import speedrenthu.machine.MachineDto;
-import speedrenthu.machine.UpdateSegmentCommand;
 import speedrenthu.pricecategory.CreatePriceCategoryCommand;
 import speedrenthu.pricecategory.PriceCategory;
 import speedrenthu.pricecategory.PriceCategoryDto;
@@ -67,7 +66,7 @@ public class PriceCategoryControllerRestTestIT {
     @Test
     void testUpdate() {
         template.put("/api/speedrenthu/price_categories/1", new UpdateAmountCommand(8500));
-        PriceCategoryDto priceCategoryDto = template.getForObject("/api/speedrenthu/price_categories/1",PriceCategoryDto.class);
+        PriceCategoryDto priceCategoryDto = template.getForObject("/api/speedrenthu/price_categories/1", PriceCategoryDto.class);
         assertEquals(8500, priceCategoryDto.getAmount());
 
     }
@@ -75,9 +74,13 @@ public class PriceCategoryControllerRestTestIT {
     @Test
     void testDelete() {
         template.delete("/api/speedrenthu/price_categories/1");
-        Problem result = template.getForObject("/api/speedrenthu/price_categories/1", Problem.class);
-        assertEquals(URI.create("pricecategory/not-found"),result.getType());
-        assertEquals(Status.NOT_FOUND, result.getStatus());
+        List<PriceCategoryDto> result = template.exchange(
+                "/api/speedrenthu/price_categories",
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<List<PriceCategoryDto>>() {
+                }).getBody();
+        assertEquals(8, result.size());
     }
 
 

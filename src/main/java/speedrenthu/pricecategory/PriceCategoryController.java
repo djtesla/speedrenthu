@@ -50,6 +50,20 @@ public class PriceCategoryController {
         priceCategoryService.deletePriceCategoryById(id);
     }
 
+    @ExceptionHandler(PriceCategoryAlreadyExistsException.class)
+    public ResponseEntity<Problem> handlePriceCategoryAlreadyExists(PriceCategoryAlreadyExistsException paee) {
+        Problem problem = Problem.builder()
+                .withType(URI.create("pricecategory/already-exists"))
+                .withStatus(Status.NOT_FOUND)
+                .withTitle("Already exists")
+                .withDetail(paee.getMessage())
+                .build();
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(problem);
+    }
+
     @ExceptionHandler(EntityNotFoundException.class)
     public ResponseEntity<Problem> handlePriceCategoryNotFound(EntityNotFoundException enfe) {
         Problem problem = Problem.builder()

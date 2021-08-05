@@ -1,12 +1,10 @@
 package speedrenthu.pricecategory;
 
 import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import speedrenthu.machine.Machine;
 import speedrenthu.machine.MachineDto;
-import speedrenthu.machine.MachineRepository;
 import speedrenthu.machine.MachineService;
 
 import javax.persistence.EntityNotFoundException;
@@ -30,6 +28,11 @@ public class PriceCategoryService {
         String name = command.getName();
         MachineDto machineDto = machineService.findMachineByName(name);
         Machine machine = modelMapper.map(machineDto, Machine.class);
+
+        Optional<PriceCategory> priceCategoryOptional = priceCategoryRepository.findPriceCategoryByMachineAndDuration(machine, command.getDuration());
+        if (!priceCategoryOptional.isEmpty()){
+            throw new PriceCategoryAlreadyExistsException("Price category already exists with machine name: " +machine.getName() +  ", duration: " + command.getDuration());
+        }
         PriceCategory priceCategory = new PriceCategory(command.getDuration(), command.getAmount());
         machine.addPriceCategory(priceCategory);
         priceCategoryRepository.save(priceCategory);
