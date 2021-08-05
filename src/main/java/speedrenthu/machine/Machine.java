@@ -4,11 +4,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import org.hibernate.validator.constraints.UniqueElements;
 import speedrenthu.pricecategory.PriceCategory;
 
 import javax.persistence.*;
-import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +19,7 @@ import java.util.List;
 public class Machine {
 
     public enum Segment {
-        BUILDING, BUILDING_AND_REPAIRING, CLEANING, GARDENING
+        BUILDING, CLEANING, GARDENING, BUILDING_AND_REPAIRING
     }
 
 
